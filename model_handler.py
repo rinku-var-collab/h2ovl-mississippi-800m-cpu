@@ -8,12 +8,12 @@ import sys
 
 # Custom implementation for CPU
 def custom_load_single_image(file_name, max_num=6, msac=False):
-    def build_transform(input_size):
+    def build_transform(input_size: int=448):
         IMAGENET_MEAN = (0.485, 0.456, 0.406)
         IMAGENET_STD = (0.229, 0.224, 0.225)
         return T.Compose([
             T.Lambda(lambda img: img.convert('RGB') if img.mode != 'RGB' else img),
-            T.Resize((448, 448)),
+            T.Resize((input_size, input_size)),
             T.ToTensor(),
             T.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD)
         ])
@@ -51,13 +51,13 @@ def patch_huggingface_cached_module():
 
 
 # Initialize the model
-def initialize_model():
-    model_path = 'h2oai/h2ovl-mississippi-800m'
+def initialize_model(model_path: str='h2oai/h2ovl-mississippi-800m'):
+    #model_path = 'h2oai/h2ovl-mississippi-800m'
     os.environ["HF_HOME"] = "./tmp_huggingface_cache"
 
     # Load configuration
     config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
-    config.llm_config._attn_implementation = "default"
+    config.llm_config._attn_implementation = "eager"
 
     # Load model on CPU
     model = AutoModel.from_pretrained(
