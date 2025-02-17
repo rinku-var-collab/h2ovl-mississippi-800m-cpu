@@ -52,12 +52,13 @@ if __name__ == "__main__":
     img_cfg_map = {
         'recipt': {'path': './images/recipt.jpeg', 'question': '<image>\nRead the text and provide word by word ocr for the document.'},
         'salad_dressing': {'path': './images/salad_dressing.jpeg', 'question': '<image>\nRead the text in the image'},
-        'empty_bag': {'path': './images/empty_bag.jpeg', 'question': '<image>\nRead the text in the image'}
+        'empty_bag': {'path': './images/empty_bag.jpeg', 'question': '<image>\nRead the text in the image'},
+        'sample': {'path': 'sample.webp', 'question': '<image>\nRead the text in the image'}
     }
-    image_file_path = './images/salad_dressing.jpeg'
-    question_image = """<image>\n
-    Read the text in the image
-    """
+    #image_file_path = './images/salad_dressing.jpeg'
+    #question_image = """<image>\n
+    #Read the text in the image
+    #"""
 
     for k, conf in img_cfg_map.items():
         print(f'------------- processing: {k} -------------')
